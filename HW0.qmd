@@ -5,36 +5,61 @@ format: html
 editor: visual
 ---
 
-## Exercises
+# Exercise
 
 -   For homework 0 you will write a Quarto document that generates an html with the solutions to $f(x) = ax^2+bx+c=0$ for $a = 1, b = 3, c = 2$. Do not report complex solutions, only real numbers. The report should include a plot confirming the result. The html report should not show the code, but the code must be in the Quarto document. The document should include explanations of what the reader is seeing but should be no longer than 1 page.
+
+# Find Solutions
+
+-   To solve a quadratic equation, we need to consider three cases: 
+
+If $b^2-4ac < 0$, then there is no solution to the equation.
+
+If $b^2-4ac = 0$, then there is one solution to the equation.
+
+If $b^2-4ac > 0$, then there are two solutions to the equation.
+
+Then, we apply the formula $$x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}$$ given that $b^2-4ac \geq 0$.
+
+-   We will write a function `solveQuadratic()` to determine whether the quadratic function is solvable, how many solutions there are, and present the solution. 
+
+- Applying the particular $a,b,c$ presented in the exercise, we have
 
 ```{r}
 #| echo: false
 solveQuadratic <- function(a,b,c){
-  print(paste0("Your equation is ", a,"x^2+",b, "x +", c))
-  delta <- (b^2) - (4*a*c)
-  if (delta < 0){
+  print(paste0("Your equation is f(x) = ", a,"x^2+",b, "x +", c, "= 0")) # inform the equation
+  delta <- (b^2) - (4*a*c) #calculate the value
+  
+  # The case when there is no solutions
+  if (delta < 0){ 
     return (paste0("This function has no solution in real numbers."))
   }
+  
+  # The case when there are two solutions
   else if (delta > 0){
     xpos <- (-b + sqrt(delta))/(2*a)
     xneg <- (-b - sqrt(delta))/(2*a)
     print(paste0("There are two solutions to your equation. They are ", xpos, " and ", xneg, "."))
   }
+  
+  #The case when there is only one solution
   else {
     xone <- (-b)/(2*a)
     print(paste0("There is only one solution to your equation. It is", xone))
   }
 }
 
-a <- 3
-b <- 7
-c <- 2.5
-solveQuadratic(a, b, c)
+#Where you can change the value of a, b, c
+a <- 1
+b <- 3
+c <- 2
+solveQuadratic(a, b, c) #run the function that solves quadratic function
 ```
 
--   Include a graph of $f(x)$ versus $x$ for $x \in (-5,5)$.
+## Visual Representation
+
+- Include a graph of $f(x)$ versus $x$ for $x \in (-5,5)$.
 
 ```{r}
 #| echo: false
@@ -43,10 +68,3 @@ plot(x, a*x^2 +b*x + c, type = "l")
 abline(h = 0, lty = 2)
 ```
 
--   Generate a PDF report using knitr. Do not show the R code, only the solutions and explanations of what the reader is seeing.
-
--   Erase the PDF report and reproduce it but this time using $a=1, b=2, c=5$.
-
--   Erase the PDF report and reproduce it but this time using $a=1, b=3, c=2$.
-
--   Create an HTML page with the results for this last set of values, but this time showing the code.
