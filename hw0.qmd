@@ -1,5 +1,5 @@
 ---
-title: "hw0"
+title: "HW0"
 author: "Jingyun"
 format: html
 editor: visual
